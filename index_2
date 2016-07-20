@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Game </title> <!--tab name-->
+
+    <style>
+      .counter{
+        position: absolute;
+        bottom: 5px; left: 5px; font-size: 72px; font-family: "Arial";
+        color: #ffcc33;;
+        text-align: center;
+        border: 10px solid black; margin: 5px; margin-bottom: 10px;
+        padding-left: 15px; padding-right: 15px; padding-top: 5px; padding-bottom: 5px;
+      }
+      .text{
+        position: absolute;
+        bottom: 120px; left: 5px; margin: 5px;
+        font-size: 36px; font-family: "Arial";
+        color: black;
+      }
+      .background{
+        background-color: #ff9999;
+        cursor: url(crosshair.png) 214 214, auto;
+      }
+      .balloon{
+        position: absolute; bottom: 0px;
+      }
+      .inflatable{
+        width: 180px; height: 200px;
+        background-color: #ffcc33;
+        border-radius: 50%; <!--makes it circle for >50%, insstead of square-->
+      }
+      .string{
+        width: 2px; height: 150px; margin-left: 90px;
+        background-color: black;
+
+        html {
+                cursor: url(crosshair.png) 64 64, auto;
+              }
+      }
+
+    </style>
+
+  </head>
+
+  <body = class = "background">
+    <p class = "text"> score </p>
+    <div class = "counter">
+      0
+    </div>
+
+    <div class="balloon">
+      <div class = "inflatable">
+      </div>
+      <!--<div class = "mouth">
+      </div> -->
+      <div class="string">
+      </div>
+    </div>
+
+  </body>
+
+<!-- scripts at the bottom jQuary-->
+<!-- popping of balloons, fattar inte riktigt vad som händer
+behövs göras innan copy tas bort i nästa loop-->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.0.0/jquery.min.js"></script>
+<script>
+  var balloon = $(".balloon");
+  var n_balloon = 5
+
+for (i = 0; i < 3; i++) {
+
+  for (i = 0; i < n_balloon; i++){
+    var balloonCopy = balloon.clone();
+    var counter = 0;
+    var randomColor = Math.floor(Math.random()*16777215).toString(16);
+    var randomSize = Math.floor(Math.random()*50)+100;
+    var width = randomSize + "px";
+    var height = Math.floor(randomSize*1.2) + "px";
+
+
+    balloonCopy.css({
+      left: i*1100/n_balloon + 40
+
+    });
+    balloonCopy.appendTo("body");
+
+    balloonCopy.click(function(){
+      $( this ).remove();
+      counter = counter + 1;
+      $(".counter").html(counter);
+      if (counter == n_balloon){
+        window.alert("WOW! *_* You are so good at this!")
+      }
+    })
+
+    balloonCopy.animate({ bottom: "100%"},12000);
+
+    delay(1000);
+  };
+
+};
+
+balloon.remove();
+
+</script>
+
+</html>
